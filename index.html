@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Expense Tracker</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>💰 SpendWise</h2>
+    <p class="menu-title">MENU</p>
+    <a href="#" class="active" data-page="dashboard">▦ Dashboard</a>
+    <a href="#" data-page="transactions">⇄ Transactions</a>
+    <a href="#" data-page="budget">◷ Budget</a>
+    <a href="#" data-page="analytics">▥ Analytics</a>
+
+    <div class="sidebar-bottom">
+        <p>Manage your money smartly.</p>
+        <small>SpendWise © 2026</small>
+    </div>
+</div>
+
+<main class="main">
+
+    <header>
+        <div>
+            <h1 id="pageTitle">Dashboard</h1>
+            <p>Welcome back! Here's your financial overview.</p>
+        </div>
+        <button class="add-btn" onclick="openModal()">+ Add Transaction</button>
+    </header>
+
+    <section id="dashboard" class="page">
+
+        <div class="stats">
+            <div class="stat-card">
+                <p>Total Balance</p>
+                <h2 id="balance">₹0</h2>
+                <span>Available balance</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Income</p>
+                <h2 id="income">₹0</h2>
+                <span class="green">↑ Money received</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Total Expenses</p>
+                <h2 id="expense">₹0</h2>
+                <span class="red">↓ Money spent</span>
+            </div>
+
+            <div class="stat-card">
+                <p>Monthly Budget</p>
+                <h2 id="budgetAmount">₹0</h2>
+                <span>Set your spending limit</span>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <div class="panel">
+                <h3>Expense Overview</h3>
+                <p class="muted">Your spending by category</p>
+                <canvas id="expenseChart"></canvas>
+            </div>
+
+            <div class="panel">
+                <h3>Monthly Budget</h3>
+                <p class="muted">Your budget usage</p>
+                <h2 id="budgetUsed">₹0 / ₹0</h2>
+                <div class="progress">
+                    <div id="budgetProgress"></div>
+                </div>
+                <p id="budgetMessage">Set a budget to get started.</p>
+                <button class="outline-btn" onclick="setBudget()">Set Budget</button>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h3>Recent Transactions</h3>
+            <div id="recentTransactions"></div>
+        </div>
+    </section>
+
+    <section id="transactions" class="page hidden">
+        <div class="panel">
+            <h3>All Transactions</h3>
+            <div class="filters">
+                <input type="text" id="search" placeholder="Search transactions...">
+                <select id="filter">
+                    <option value="all">All Transactions</option>
+                    <option value="income">Income</option>
+                    <option value="expense">Expenses</option>
+                </select>
+            </div>
+            <div id="allTransactions"></div>
+        </div>
+    </section>
+
+    <section id="budget" class="page hidden">
+        <div class="panel">
+            <h2>Monthly Budget</h2>
+            <p class="muted">Keep your spending under control.</p>
+            <h1 id="budgetPageAmount">₹0</h1>
+            <p id="budgetPageUsed">Spent: ₹0</p>
+            <div class="progress">
+                <div id="budgetPageProgress"></div>
+            </div>
+            <button class="add-btn" onclick="setBudget()">Update Budget</button>
+        </div>
+    </section>
+
+    <section id="analytics" class="page hidden">
+        <div class="panel">
+            <h2>Spending Analytics</h2>
+            <p class="muted">Understand where your money goes.</p>
+            <canvas id="analyticsChart"></canvas>
+        </div>
+    </section>
+
+</main>
+
+<!-- Add Transaction Modal -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <span class="close" onclick="closeModal()">×</span>
+        <h2>Add Transaction</h2>
+
+        <form id="transactionForm">
+            <label>Title</label>
+            <input id="title" type="text" placeholder="e.g. Shopping" required>
+
+            <label>Amount (₹)</label>
+            <input id="amount" type="number" min="0.01" step="0.01" required>
+
+            <label>Type</label>
+            <select id="type">
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+            </select>
+
+            <label>Category</label>
+            <select id="category">
+                <option>Food</option>
+                <option>Shopping</option>
+                <option>Transport</option>
+                <option>Education</option>
+                <option>Entertainment</option>
+                <option>Health</option>
+                <option>Salary</option>
+                <option>Other</option>
+            </select>
+
+            <label>Date</label>
+            <input id="date" type="date" required>
+
+            <button type="submit" class="add-btn full">Save Transaction</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
